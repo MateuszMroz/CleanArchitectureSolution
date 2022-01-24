@@ -48,9 +48,8 @@ dependencies {
     implementation libs.androidx.navigation.ui
 
     //di dependencies
+    implementation libs.koin.core
     implementation libs.koin.android
-    implementation libs.koin.androidx.scope
-    implementation libs.koin.androidx.viewmodel
 
     //coroutines dependencies
     implementation libs.coroutines.android

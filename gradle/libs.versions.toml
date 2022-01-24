@@ -24,7 +24,7 @@ coroutines-core = "1.3.8"
 glide = "4.11.0"
 
 # Koin
-koin = "2.1.5"
+koin = "3.1.5"
 
 # Live Event
 live-event = "1.2.0"
@@ -72,9 +72,8 @@ coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", ve
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 
 # Koin
-koin-android = { module = "org.koin:koin-android", version.ref = "koin" }
-koin-androidx-scope = { module = "org.koin:koin-androidx-scope", version.ref = "koin" }
-koin-androidx-viewmodel = { module = "org.koin:koin-androidx-viewmodel", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 
 # Live Event
 live-event = { module = "com.github.hadilq.liveevent:liveevent", version.ref = "live-event" }
