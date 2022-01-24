@@ -69,6 +69,10 @@ dependencies {
     implementation libs.retrofit.network
     implementation libs.retrofit.converter.gson
 
+    //room dependencies
+    implementation libs.androidx.room.runtime
+    annotationProcessor libs.androidx.room.compiler
+
     //testing dependencies
     testImplementation libs.junit.jupiter.api
     testImplementation libs.junit.jupiter.params

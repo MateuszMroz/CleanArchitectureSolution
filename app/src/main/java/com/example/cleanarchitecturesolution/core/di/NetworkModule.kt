@@ -1,7 +1,7 @@
 package com.example.cleanarchitecturesolution.core.di
 
 import com.example.cleanarchitecturesolution.BuildConfig
-import com.example.cleanarchitecturesolution.features.data.RickAndMortyApi
+import com.example.cleanarchitecturesolution.features.data.remote.RickAndMortyApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
