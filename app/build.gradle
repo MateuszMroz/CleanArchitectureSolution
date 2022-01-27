@@ -48,9 +48,8 @@ dependencies {
     implementation libs.androidx.navigation.ui
 
     //di dependencies
+    implementation libs.koin.core
     implementation libs.koin.android
-    implementation libs.koin.androidx.scope
-    implementation libs.koin.androidx.viewmodel
 
     //coroutines dependencies
     implementation libs.coroutines.android
@@ -68,6 +67,10 @@ dependencies {
     implementation libs.okhttp.loggingInterceptor
     implementation libs.retrofit.network
     implementation libs.retrofit.converter.gson
+
+    //room dependencies
+    implementation libs.androidx.room.runtime
+    annotationProcessor libs.androidx.room.compiler
 
     //testing dependencies
     testImplementation libs.junit.jupiter.api
