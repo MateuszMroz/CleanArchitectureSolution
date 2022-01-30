@@ -33,48 +33,25 @@ android {
 }
 
 dependencies {
-    //core dependencies
-    implementation libs.androidx.appcompat
-    implementation libs.androidx.core
+    implementation libs.bundles.core
 
-    //ui dependencies
-    implementation libs.androidx.constraintlayout
-    implementation libs.android.material
-    implementation libs.androidx.recyclerview
-    implementation libs.glide
+    implementation libs.bundles.ui
 
-    //navigation dependencies
-    implementation libs.androidx.navigation.fragment
-    implementation libs.androidx.navigation.ui
+    implementation libs.bundles.navigation
 
-    //di dependencies
-    implementation libs.koin.core
-    implementation libs.koin.android
+    implementation libs.bundles.di
 
-    //coroutines dependencies
-    implementation libs.coroutines.android
-    implementation libs.coroutines.core
+    implementation libs.bundles.coroutines
 
-    //lifecycle dependencies
-    implementation libs.androidx.lifcycle.common.java8
-    implementation libs.androidx.lifcycle.livedata.ktx
-    implementation libs.androidx.lifcycle.runtime.ktx
-    implementation libs.androidx.lifcycle.viewmodel.ktx
-    implementation libs.live.event
+    implementation libs.bundles.lifecycle
 
-    //network dependencies
-    implementation libs.okhttp.network
-    implementation libs.okhttp.loggingInterceptor
-    implementation libs.retrofit.network
-    implementation libs.retrofit.converter.gson
+    implementation libs.bundles.network
 
-    //room dependencies
     implementation libs.androidx.room.runtime
     annotationProcessor libs.androidx.room.compiler
 
     //testing dependencies
-    testImplementation libs.junit.jupiter.api
-    testImplementation libs.junit.jupiter.params
+    testImplementation libs.bundles.jupiter
     testRuntimeOnly libs.junit.jupiter.engine
 
     testImplementation libs.kluent
