@@ -1,4 +1,4 @@
-package com.example.cleanarchitecturesolution.features.rules
+package com.example.cleanarchitecturesolution.rules
 
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers

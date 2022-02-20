@@ -1,7 +1,7 @@
 package com.example.cleanarchitecturesolution.features.character.domain
 
 import com.example.cleanarchitecturesolution.features.character.CharacterRepository
-import com.example.cleanarchitecturesolution.features.rules.MainDispatcherRule
+import com.example.cleanarchitecturesolution.rules.MainDispatcherRule
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.DelicateCoroutinesApi
