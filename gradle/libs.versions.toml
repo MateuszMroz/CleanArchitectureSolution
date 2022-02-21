@@ -17,8 +17,7 @@ androidx-room = "2.4.1"
 android-material = "1.5.0"
 
 # Coroutines
-coroutines-android = "1.6.0"
-coroutines-core = "1.6.0"
+coroutines-kotlinx = "1.6.0"
 
 # Glide
 glide = "4.11.0"
@@ -39,7 +38,7 @@ retrofit = "2.9.0"
 junit5 = "1.8.2.0"
 junit-jupiter = "5.8.2"
 mockk = "1.12.2"
-kluent = " 1.68"
+kluent = "1.68"
 
 [libraries]
 
@@ -65,8 +64,8 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
 
 # Coroutines
-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines-android" }
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines-core" }
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines-kotlinx" }
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines-kotlinx" }
 
 # Glide
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
@@ -92,6 +91,7 @@ junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.re
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit-jupiter" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit-jupiter" }
 kluent = { module = "org.amshove.kluent:kluent", version.ref = "kluent" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines-kotlinx" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [bundles]
