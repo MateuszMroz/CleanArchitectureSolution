@@ -57,8 +57,9 @@ androidx-lifcycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewm
 androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "androidx-recyclerview" }
-androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
 
 # Android
 android-material = { module = "com.google.android.material:material", version.ref = "android-material" }

@@ -1,4 +1,4 @@
-package com.example.cleanarchitecturesolution.features.data.remote.model
+package com.example.cleanarchitecturesolution.core.data.remote.model
 
 import androidx.annotation.Keep
 import com.example.cleanarchitecturesolution.features.character.domain.model.Character

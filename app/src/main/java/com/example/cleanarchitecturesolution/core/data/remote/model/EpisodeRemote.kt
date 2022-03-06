@@ -1,8 +1,16 @@
-package com.example.cleanarchitecturesolution.features.data.remote.model
+package com.example.cleanarchitecturesolution.core.data.remote.model
 
 import androidx.annotation.Keep
 import com.example.cleanarchitecturesolution.features.episodes.domain.model.Episode
 import com.google.gson.annotations.SerializedName
+
+@Keep
+data class EpisodeResponse(
+    @SerializedName("info") val info: ResponseInfo,
+    @SerializedName("results") val results: List<EpisodeRemote>
+) {
+    companion object
+}
 
 @Keep
 data class EpisodeRemote(
@@ -14,5 +22,17 @@ data class EpisodeRemote(
     @SerializedName("name") val name: String,
     @SerializedName("url") val url: String
 ) {
+    companion object
+
     fun toEpisode(): Episode = Episode(airDate, characters, code, id, name, url)
+}
+
+@Keep
+data class ResponseInfo(
+    @SerializedName("count") val count: Int,
+    @SerializedName("next") val next: String,
+    @SerializedName("pages") val pages: Int,
+    @SerializedName("prev") val prev: String
+){
+    companion object
 }
