@@ -5,7 +5,7 @@ import com.example.cleanarchitecturesolution.features.location.LocationRepositor
 import com.example.cleanarchitecturesolution.features.location.domain.model.Location
 
 class GetLocationsUseCase(
-    private val repository: LocationRepository
+    private val repository: LocationRepository,
 ) : UseCase<List<Location>, Unit>() {
 
     override suspend fun doAction(params: Unit): List<Location> = repository.fetchLocations()

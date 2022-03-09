@@ -1,4 +1,4 @@
-package com.example.cleanarchitecturesolution.features.episodes.domain.model
+package com.example.cleanarchitecturesolution.features.episode.domain.model
 
 data class Episode(
     val airDate: String,
@@ -6,5 +6,5 @@ data class Episode(
     val code: String,
     val id: Int,
     val name: String,
-    val url: String
+    val url: String,
 )

@@ -1,7 +1,7 @@
 package com.example.cleanarchitecturesolution.core.data.remote.model
 
 import androidx.annotation.Keep
-import com.example.cleanarchitecturesolution.features.episodes.domain.model.Episode
+import com.example.cleanarchitecturesolution.features.episode.domain.model.Episode
 import com.google.gson.annotations.SerializedName
 
 @Keep

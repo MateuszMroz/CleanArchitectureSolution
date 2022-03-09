@@ -5,6 +5,14 @@ import com.example.cleanarchitecturesolution.features.location.domain.model.Loca
 import com.google.gson.annotations.SerializedName
 
 @Keep
+data class LocationResponse(
+    @SerializedName("info") val info: ResponseInfo,
+    @SerializedName("results") val results: List<LocationRemote>,
+) {
+    companion object
+}
+
+@Keep
 data class LocationRemote(
     @SerializedName("created") val created: String,
     @SerializedName("dimension") val dimension: String,
@@ -14,5 +22,7 @@ data class LocationRemote(
     @SerializedName("type") val type: String,
     @SerializedName("url") val url: String,
 ) {
+    companion object
+
     fun toLocation(): Location = Location(dimension, id, name, residents, type, url)
 }

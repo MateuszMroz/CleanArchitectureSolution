@@ -7,11 +7,11 @@ import androidx.room.Query
 import com.example.cleanarchitecturesolution.features.character.data.local.CharacterCached
 
 @Dao
-abstract class CharacterDao {
+interface CharacterDao {
 
     @Insert(onConflict = REPLACE)
-    abstract fun saveCharacters(vararg characters: CharacterCached)
+    fun saveCharacters(vararg characters: CharacterCached)
 
     @Query("SELECT * FROM character")
-    abstract fun getCharacters(): List<CharacterCached>
+    fun getCharacters(): List<CharacterCached>
 }

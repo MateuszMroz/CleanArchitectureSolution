@@ -1,11 +1,11 @@
-package com.example.cleanarchitecturesolution.features.episodes.data.repository
+package com.example.cleanarchitecturesolution.features.episode.data.repository
 
 import com.example.cleanarchitecturesolution.core.data.remote.RickAndMortyApi
 import com.example.cleanarchitecturesolution.core.data.remote.model.EpisodeResponse
 import com.example.cleanarchitecturesolution.core.network.NetworkStateProvider
-import com.example.cleanarchitecturesolution.features.episodes.EpisodesRepository
-import com.example.cleanarchitecturesolution.features.episodes.data.local.EpisodesDao
-import com.example.cleanarchitecturesolution.features.episodes.data.local.model.EpisodeCached
+import com.example.cleanarchitecturesolution.features.episode.EpisodeRepository
+import com.example.cleanarchitecturesolution.features.episode.data.local.EpisodesDao
+import com.example.cleanarchitecturesolution.features.episode.data.local.model.EpisodeCached
 import com.example.cleanarchitecturesolution.mock.mock
 import com.example.cleanarchitecturesolution.rules.MainDispatcherRule
 import io.mockk.coEvery
@@ -20,7 +20,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 @DelicateCoroutinesApi
 @ExperimentalCoroutinesApi
 @ExtendWith(MainDispatcherRule::class)
-internal class EpisodesRepositoryTest {
+internal class EpisodeRepositoryTest {
 
     @Test
     fun `GIVEN network is connected WHEN episodes request THEN fetch episodes from API`() =
@@ -32,7 +32,7 @@ internal class EpisodesRepositoryTest {
             val networkStateProvider = mockk<NetworkStateProvider> {
                 coEvery { isNetworkAvailable() } returns true
             }
-            val repository: EpisodesRepository = EpisodesRepositoryImpl(
+            val repository: EpisodeRepository = EpisodeRepositoryImpl(
                 api,
                 episodesDao,
                 networkStateProvider
@@ -53,7 +53,7 @@ internal class EpisodesRepositoryTest {
             val networkStateProvider = mockk<NetworkStateProvider> {
                 coEvery { isNetworkAvailable() } returns true
             }
-            val repository: EpisodesRepository = EpisodesRepositoryImpl(
+            val repository: EpisodeRepository = EpisodeRepositoryImpl(
                 api,
                 episodesDao,
                 networkStateProvider
@@ -74,7 +74,7 @@ internal class EpisodesRepositoryTest {
             val networkStateProvider = mockk<NetworkStateProvider> {
                 coEvery { isNetworkAvailable() } returns false
             }
-            val repository: EpisodesRepository = EpisodesRepositoryImpl(
+            val repository: EpisodeRepository = EpisodeRepositoryImpl(
                 api,
                 episodesDao,
                 networkStateProvider

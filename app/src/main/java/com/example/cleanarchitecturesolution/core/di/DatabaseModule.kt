@@ -20,4 +20,8 @@ val databaseModule = module {
     single {
         get<RickAndMortyDb>().characterDao()
     }
+
+    single {
+        get<RickAndMortyDb>().locationDao()
+    }
 }

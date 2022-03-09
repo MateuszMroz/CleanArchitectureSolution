@@ -1,8 +1,12 @@
-package com.example.cleanarchitecturesolution.features.location.presentation.model
+package com.example.cleanarchitecturesolution.features.location.data.local.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.cleanarchitecturesolution.features.location.domain.model.Location
 
-data class LocationDisplayable(
+@Entity(tableName = "location")
+data class LocationCached(
+    @PrimaryKey
     val dimension: String,
     val id: Int,
     val name: String,
@@ -18,4 +22,8 @@ data class LocationDisplayable(
         location.type,
         location.url
     )
+
+    companion object
+
+    fun toLocation(): Location = Location(dimension, id, name, residents, type, url)
 }

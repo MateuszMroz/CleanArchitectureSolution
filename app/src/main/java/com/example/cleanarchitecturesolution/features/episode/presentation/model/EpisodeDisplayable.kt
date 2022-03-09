@@ -1,6 +1,6 @@
-package com.example.cleanarchitecturesolution.features.episodes.presentation.model
+package com.example.cleanarchitecturesolution.features.episode.presentation.model
 
-import com.example.cleanarchitecturesolution.features.episodes.domain.model.Episode
+import com.example.cleanarchitecturesolution.features.episode.domain.model.Episode
 
 class EpisodeDisplayable(
     val airDate: String,
@@ -8,7 +8,7 @@ class EpisodeDisplayable(
     val code: String,
     val id: Int,
     val name: String,
-    val url: String
+    val url: String,
 ) {
     constructor(episode: Episode) : this(
         episode.airDate,

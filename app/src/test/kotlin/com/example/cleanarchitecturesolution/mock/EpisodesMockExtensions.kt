@@ -3,7 +3,7 @@ package com.example.cleanarchitecturesolution.mock
 import com.example.cleanarchitecturesolution.core.data.remote.model.EpisodeRemote
 import com.example.cleanarchitecturesolution.core.data.remote.model.EpisodeResponse
 import com.example.cleanarchitecturesolution.core.data.remote.model.ResponseInfo
-import com.example.cleanarchitecturesolution.features.episodes.data.local.model.EpisodeCached
+import com.example.cleanarchitecturesolution.features.episode.data.local.model.EpisodeCached
 import org.jetbrains.annotations.TestOnly
 
 @TestOnly

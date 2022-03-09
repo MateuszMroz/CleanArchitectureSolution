@@ -1,8 +1,8 @@
-package com.example.cleanarchitecturesolution.features.episodes.data.local.model
+package com.example.cleanarchitecturesolution.features.episode.data.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.cleanarchitecturesolution.features.episodes.domain.model.Episode
+import com.example.cleanarchitecturesolution.features.episode.domain.model.Episode
 
 @Entity(tableName = "episode")
 data class EpisodeCached(
@@ -12,7 +12,7 @@ data class EpisodeCached(
     val characters: List<String>,
     val code: String,
     val name: String,
-    val url: String
+    val url: String,
 ) {
     constructor(episode: Episode) : this(
         episode.id,

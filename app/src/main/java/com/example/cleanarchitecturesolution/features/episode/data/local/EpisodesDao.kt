@@ -1,10 +1,10 @@
-package com.example.cleanarchitecturesolution.features.episodes.data.local
+package com.example.cleanarchitecturesolution.features.episode.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import com.example.cleanarchitecturesolution.features.episodes.data.local.model.EpisodeCached
+import com.example.cleanarchitecturesolution.features.episode.data.local.model.EpisodeCached
 
 @Dao
 interface EpisodesDao {

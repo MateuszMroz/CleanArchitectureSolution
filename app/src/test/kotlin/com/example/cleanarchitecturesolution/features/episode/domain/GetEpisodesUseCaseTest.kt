@@ -1,6 +1,6 @@
-package com.example.cleanarchitecturesolution.features.episodes.domain
+package com.example.cleanarchitecturesolution.features.episode.domain
 
-import com.example.cleanarchitecturesolution.features.episodes.EpisodesRepository
+import com.example.cleanarchitecturesolution.features.episode.EpisodeRepository
 import com.example.cleanarchitecturesolution.rules.MainDispatcherRule
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -19,7 +19,7 @@ internal class GetEpisodesUseCaseTest {
     @Test
     fun `when use case is invoked verify if fetchEpisodes method from repository was triggered`() =
         runTest {
-            val repository: EpisodesRepository = mockk(relaxed = true)
+            val repository: EpisodeRepository = mockk(relaxed = true)
             val useCase = GetEpisodesUseCase(repository)
 
             useCase(
