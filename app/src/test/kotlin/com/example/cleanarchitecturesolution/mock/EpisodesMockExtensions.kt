@@ -7,10 +7,6 @@ import com.example.cleanarchitecturesolution.features.episodes.data.local.model.
 import org.jetbrains.annotations.TestOnly
 
 @TestOnly
-fun ResponseInfo.Companion.mock() =
-    ResponseInfo(count = 0, next = "test_next", pages = 0, prev = "test_prev")
-
-@TestOnly
 fun EpisodeRemote.Companion.mock() = EpisodeRemote(
     airDate = "test_airDate",
     characters = listOf(),

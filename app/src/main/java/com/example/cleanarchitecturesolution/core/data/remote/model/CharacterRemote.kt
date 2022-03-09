@@ -6,6 +6,14 @@ import com.example.cleanarchitecturesolution.features.character.domain.model.Loc
 import com.google.gson.annotations.SerializedName
 
 @Keep
+data class CharacterResponse(
+    @SerializedName("info") val info: ResponseInfo,
+    @SerializedName("results") val results: List<CharacterRemote>,
+) {
+    companion object
+}
+
+@Keep
 data class CharacterRemote(
     @SerializedName("created") val created: String,
     @SerializedName("episode") val episode: List<String>,
@@ -18,8 +26,10 @@ data class CharacterRemote(
     @SerializedName("species") val species: String,
     @SerializedName("status") val status: String,
     @SerializedName("type") val type: String,
-    @SerializedName("url") val url: String
+    @SerializedName("url") val url: String,
 ) {
+    companion object
+
     fun toCharacter(): Character = Character(
         episode,
         gender,
@@ -38,7 +48,9 @@ data class CharacterRemote(
 @Keep
 data class LocationCharacterRemote(
     @SerializedName("name") val name: String,
-    @SerializedName("url") val url: String
+    @SerializedName("url") val url: String,
 ) {
+    companion object
+
     fun toLocationCharacter() = LocationCharacter(name, url)
 }

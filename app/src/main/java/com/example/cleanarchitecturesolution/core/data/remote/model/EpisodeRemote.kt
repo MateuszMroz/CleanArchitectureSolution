@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 @Keep
 data class EpisodeResponse(
     @SerializedName("info") val info: ResponseInfo,
-    @SerializedName("results") val results: List<EpisodeRemote>
+    @SerializedName("results") val results: List<EpisodeRemote>,
 ) {
     companion object
 }
@@ -20,19 +20,9 @@ data class EpisodeRemote(
     @SerializedName("episode") val code: String,
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
-    @SerializedName("url") val url: String
+    @SerializedName("url") val url: String,
 ) {
     companion object
 
     fun toEpisode(): Episode = Episode(airDate, characters, code, id, name, url)
-}
-
-@Keep
-data class ResponseInfo(
-    @SerializedName("count") val count: Int,
-    @SerializedName("next") val next: String,
-    @SerializedName("pages") val pages: Int,
-    @SerializedName("prev") val prev: String
-){
-    companion object
 }

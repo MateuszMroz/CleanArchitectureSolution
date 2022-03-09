@@ -23,62 +23,65 @@ import org.junit.jupiter.api.extension.ExtendWith
 internal class EpisodesRepositoryTest {
 
     @Test
-    fun `GIVEN network is connected WHEN episodes request THEN fetch episodes from API`() = runTest {
-        val api = mockk<RickAndMortyApi> {
-            coEvery { getEpisodes() } returns EpisodeResponse.mock()
-        }
-        val episodesDao = mockk<EpisodesDao>(relaxed = true)
-        val networkStateProvider = mockk<NetworkStateProvider> {
-            coEvery { isNetworkAvailable() } returns true
-        }
-        val repository: EpisodesRepository = EpisodesRepositoryImpl(
-            api,
-            episodesDao,
-            networkStateProvider
-        )
+    fun `GIVEN network is connected WHEN episodes request THEN fetch episodes from API`() =
+        runTest {
+            val api = mockk<RickAndMortyApi> {
+                coEvery { getEpisodes() } returns EpisodeResponse.mock()
+            }
+            val episodesDao = mockk<EpisodesDao>(relaxed = true)
+            val networkStateProvider = mockk<NetworkStateProvider> {
+                coEvery { isNetworkAvailable() } returns true
+            }
+            val repository: EpisodesRepository = EpisodesRepositoryImpl(
+                api,
+                episodesDao,
+                networkStateProvider
+            )
 
-        repository.fetchEpisodes()
+            repository.fetchEpisodes()
 
-        coVerify { api.getEpisodes() }
-    }
+            coVerify { api.getEpisodes() }
+        }
 
     @Test
-    fun `GIVEN network is connected AND successful fetch WHEN episodes request THEN save episodes to local storage`() = runTest {
-        val api = mockk<RickAndMortyApi> {
-            coEvery { getEpisodes() } returns EpisodeResponse.mock()
-        }
-        val episodesDao = mockk<EpisodesDao>(relaxed = true)
-        val networkStateProvider = mockk<NetworkStateProvider> {
-            coEvery { isNetworkAvailable() } returns true
-        }
-        val repository: EpisodesRepository = EpisodesRepositoryImpl(
-            api,
-            episodesDao,
-            networkStateProvider
-        )
+    fun `GIVEN network is connected AND successful fetch WHEN episodes request THEN save episodes to local storage`() =
+        runTest {
+            val api = mockk<RickAndMortyApi> {
+                coEvery { getEpisodes() } returns EpisodeResponse.mock()
+            }
+            val episodesDao = mockk<EpisodesDao>(relaxed = true)
+            val networkStateProvider = mockk<NetworkStateProvider> {
+                coEvery { isNetworkAvailable() } returns true
+            }
+            val repository: EpisodesRepository = EpisodesRepositoryImpl(
+                api,
+                episodesDao,
+                networkStateProvider
+            )
 
-        repository.fetchEpisodes()
+            repository.fetchEpisodes()
 
-        coVerify { episodesDao.saveEpisodes(*anyVararg()) }
-    }
+            coVerify { episodesDao.saveEpisodes(*anyVararg()) }
+        }
 
     @Test
-    fun `GIVEN network is disconnected WHEN episodes request THEN get episodes from local storage`() = runTest {
-        val api = mockk<RickAndMortyApi>(relaxed = true)
-        val episodesDao = mockk<EpisodesDao>{
-            coEvery { getEpisodes() } returns listOf(EpisodeCached.mock(), EpisodeCached.mock())
-        }
-        val networkStateProvider = mockk<NetworkStateProvider> {
-            coEvery { isNetworkAvailable() } returns false
-        }
-        val repository: EpisodesRepository = EpisodesRepositoryImpl(
-            api,
-            episodesDao,
-            networkStateProvider
-        )
+    fun `GIVEN network is disconnected WHEN episodes request THEN get episodes from local storage`() =
+        runTest {
+            val api = mockk<RickAndMortyApi>(relaxed = true)
+            val episodesDao = mockk<EpisodesDao> {
+                coEvery { getEpisodes() } returns listOf(EpisodeCached.mock(), EpisodeCached.mock())
+            }
+            val networkStateProvider = mockk<NetworkStateProvider> {
+                coEvery { isNetworkAvailable() } returns false
+            }
+            val repository: EpisodesRepository = EpisodesRepositoryImpl(
+                api,
+                episodesDao,
+                networkStateProvider
+            )
 
-        repository.fetchEpisodes()
+            repository.fetchEpisodes()
 
-        coVerify { episodesDao.getEpisodes() }
-    }
+            coVerify { episodesDao.getEpisodes() }
+        }
 }

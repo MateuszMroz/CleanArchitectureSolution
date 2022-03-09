@@ -12,7 +12,7 @@ data class LocationRemote(
     @SerializedName("name") val name: String,
     @SerializedName("residents") val residents: List<String>,
     @SerializedName("type") val type: String,
-    @SerializedName("url") val url: String
+    @SerializedName("url") val url: String,
 ) {
     fun toLocation(): Location = Location(dimension, id, name, residents, type, url)
 }
