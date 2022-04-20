@@ -3,6 +3,7 @@ plugins {
     id 'com.android.application'
     id 'de.mannodermaus.android-junit5'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -31,6 +32,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    android {
+        buildFeatures {
+            viewBinding true
+        }
+    }
 }
 
 dependencies {
@@ -48,9 +54,9 @@ dependencies {
 
     implementation libs.bundles.network
 
-    implementation libs.androidx.room.ktx
     implementation libs.androidx.room.runtime
-    annotationProcessor libs.androidx.room.compiler
+    implementation libs.androidx.room.ktx
+    kapt libs.androidx.room.compiler
 
     //testing dependencies
     testImplementation libs.bundles.jupiter
@@ -59,4 +65,5 @@ dependencies {
     testImplementation libs.kluent
     testImplementation libs.kotlinx.coroutines.test
     testImplementation libs.mockk
+    testImplementation libs.turbine
 }

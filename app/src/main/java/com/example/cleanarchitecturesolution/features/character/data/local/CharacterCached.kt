@@ -13,10 +13,10 @@ class CharacterCached(
     val episode: List<String>,
     val gender: String,
     val image: String,
-    @Embedded
+    @Embedded(prefix = "last_")
     val lastLocation: LocationCharacterCached,
     val name: String,
-    @Embedded
+    @Embedded(prefix = "origin_")
     val originLocation: LocationCharacterCached,
     val species: String,
     val status: String,
@@ -55,7 +55,6 @@ class CharacterCached(
     )
 }
 
-@Entity(tableName = "location")
 data class LocationCharacterCached(
     val name: String,
     val url: String,

@@ -13,7 +13,6 @@ class NetworkStateProviderImpl(
     private val connectivityManager: ConnectivityManager
 ) : NetworkStateProvider {
 
-
     override fun isNetworkAvailable(): Boolean {
         if (SDK_INT >= M) {
             val capabilities =

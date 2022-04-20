@@ -10,22 +10,27 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.time.Duration
+import java.util.concurrent.TimeUnit.SECONDS
 
 val networkModule = module {
 
+    single { get<Retrofit>().create(RickAndMortyApi::class.java) }
+
     single {
         Retrofit.Builder()
-            .baseUrl("https://rickandmortyapi.com/api/")
+            .baseUrl("https://www.rickandmortyapi.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(get<OkHttpClient>())
             .build()
     }
 
-    single { get<Retrofit>().create(RickAndMortyApi::class.java) }
-
-    single {
+    single<OkHttpClient> {
         OkHttpClient.Builder()
             .addInterceptor(get<Interceptor>())
+            .readTimeout(5, SECONDS)
+            .writeTimeout(5, SECONDS)
+            .build()
     }
 
     single<Interceptor> {

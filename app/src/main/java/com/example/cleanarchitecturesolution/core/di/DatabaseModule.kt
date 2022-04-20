@@ -6,7 +6,8 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val databaseModule = module {
-    single {
+
+    single<RickAndMortyDb> {
         Room.databaseBuilder(androidContext(), RickAndMortyDb::class.java, "rick-and-morty")
             // FIXME("Remove after development process")
             .fallbackToDestructiveMigration()
