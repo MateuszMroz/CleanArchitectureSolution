@@ -4,4 +4,11 @@
     <string name="error_internal">Server is under maintenance. Please try again latter.</string>
     <string name="error_bad_request">Validation error. Please check input parameters.</string>
     <string name="error_unknown">Something went wrong.</string>
+
+    <string name="title_episodes">Episodes</string>
+    <string name="title_locations">Locations</string>
+    <string name="title_characters">Characters</string>
+    <string name="title_episode_details">Episode Details</string>
+    <string name="title_location_details">Location Details</string>
+    <string name="title_character_details">Character Details</string>
 </resources>

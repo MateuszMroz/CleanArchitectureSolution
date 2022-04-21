@@ -15,6 +15,7 @@ import io.mockk.mockk
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -24,6 +25,13 @@ import org.junit.jupiter.api.extension.ExtendWith
 internal class EpisodeRepositoryImplTest {
 
     private val errorWrapper: ErrorWrapper = mockk(relaxed = true)
+
+    private lateinit var errorWrapper: ErrorWrapper
+
+    @BeforeEach
+    fun before() {
+        errorWrapper = mockk(relaxed = true)
+    }
 
     @Test
     fun `GIVEN network is connected WHEN episodes request THEN fetch episodes from API`() =

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/characters">
+
+    <fragment
+        android:id="@+id/characters"
+        android:name="com.example.cleanarchitecturesolution.features.character.all.presentation.CharacterFragment"
+        android:label="@string/title_characters"
+        tools:layout="@layout/fragment_character" >
+        <action
+            android:id="@+id/action_navigate_to_character_details_screen"
+            app:destination="@id/characterDetails"
+            app:popUpTo="@id/characters" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/episodes"
+        android:name="com.example.cleanarchitecturesolution.features.episode.all.presentation.EpisodeFragment"
+        android:label="@string/title_episodes"
+        tools:layout="@layout/fragment_episode" >
+        <action
+            android:id="@+id/action_navigate_to_episode_details_screen"
+            app:destination="@id/episodeDetails"
+            app:popUpTo="@id/episodes" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/locations"
+        android:name="com.example.cleanarchitecturesolution.features.location.all.presentation.LocationFragment"
+        android:label="@string/title_locations"
+        tools:layout="@layout/fragment_location" >
+        <action
+            android:id="@+id/action_navigate_to_location_details_screen"
+            app:destination="@id/locationDetails"
+            app:popUpTo="@id/locations" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/episodeDetails"
+        android:name="com.example.cleanarchitecturesolution.features.episode.details.presentation.EpisodeDetailsFragment"
+        android:label="@string/title_episode_details"
+        tools:layout="@layout/fragment_episode_details" />
+
+    <fragment
+        android:id="@+id/locationDetails"
+        android:name="com.example.cleanarchitecturesolution.features.location.details.LocationDetailsFragment"
+        android:label="@string/title_location_details"
+        tools:layout="@layout/fragment_location_details" />
+
+    <fragment
+        android:id="@+id/characterDetails"
+        android:name="com.example.cleanarchitecturesolution.features.character.details.CharacterDetailsFragment"
+        android:label="@string/title_character_details"
+        tools:layout="@layout/fragment_character_details" />
+</navigation>
