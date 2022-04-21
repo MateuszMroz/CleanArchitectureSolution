@@ -23,8 +23,9 @@ class LocationAdapter(itemCallback: ItemCallback<LocationDisplayable>) :
         holder.bind(location)
     }
 
-    inner class LocationViewHolder(private val binding: ItemLocationBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class LocationViewHolder(
+        private val binding: ItemLocationBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(location: LocationDisplayable) {
             binding.item.text = location.name

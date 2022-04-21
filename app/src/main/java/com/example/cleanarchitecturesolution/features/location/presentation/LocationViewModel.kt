@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
+// FIXME(Rewrite to MVI)
+// FIXME(Pagination)
 class LocationViewModel(
     private val getLocationsUseCase: GetLocationsUseCase,
 ) : ViewModel(), DefaultLifecycleObserver {
@@ -20,6 +22,7 @@ class LocationViewModel(
     private val _uiState = MutableStateFlow(LocationUiState())
     val uiState: StateFlow<LocationUiState> = _uiState.asStateFlow()
 
+    // FIXME(During configuration changing fetching data is call again)
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
         fetchLocations()

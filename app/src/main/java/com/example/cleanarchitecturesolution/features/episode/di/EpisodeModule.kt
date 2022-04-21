@@ -19,7 +19,6 @@ val episodeModule = module {
 
         scoped<EpisodeRepository> { EpisodeRepositoryImpl(get<RickAndMortyApi>(), get(), get()) }
         scoped { GetEpisodesUseCase(get<EpisodeRepository>()) }
-        scoped { EpisodeFragment() }
         scoped<ItemCallback<EpisodeDisplayable>> { EpisodeDiffCallback() }
         scoped { EpisodeAdapter(get<ItemCallback<EpisodeDisplayable>>()) }
     }

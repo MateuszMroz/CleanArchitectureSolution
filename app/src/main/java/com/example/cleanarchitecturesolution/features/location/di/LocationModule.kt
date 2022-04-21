@@ -19,7 +19,6 @@ val locationModule = module {
 
         scoped<LocationRepository> { LocationRepositoryImpl(get<RickAndMortyApi>(), get(), get()) }
         scoped { GetLocationsUseCase(get<LocationRepository>()) }
-        scoped { LocationFragment() }
         scoped<ItemCallback<LocationDisplayable>> { LocationDiffCallback() }
         scoped { LocationAdapter(get<ItemCallback<LocationDisplayable>>()) }
     }

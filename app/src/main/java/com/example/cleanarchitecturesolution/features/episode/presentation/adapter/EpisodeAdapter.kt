@@ -22,8 +22,9 @@ class EpisodeAdapter(itemCallback: ItemCallback<EpisodeDisplayable>) :
         holder.bind(episode)
     }
 
-    inner class EpisodeViewHolder(private val binding: ItemEpisodeBinding) :
-        ViewHolder(binding.root) {
+    inner class EpisodeViewHolder(
+        private val binding: ItemEpisodeBinding,
+    ) : ViewHolder(binding.root) {
 
         fun bind(episode: EpisodeDisplayable) {
             "${episode.code} - ${episode.name}".also { binding.item.text = it }

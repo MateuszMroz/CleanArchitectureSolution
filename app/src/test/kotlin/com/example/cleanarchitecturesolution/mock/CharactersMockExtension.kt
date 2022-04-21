@@ -6,6 +6,8 @@ import com.example.cleanarchitecturesolution.core.data.remote.model.LocationChar
 import com.example.cleanarchitecturesolution.core.data.remote.model.ResponseInfo
 import com.example.cleanarchitecturesolution.features.character.data.local.CharacterCached
 import com.example.cleanarchitecturesolution.features.character.data.local.LocationCharacterCached
+import com.example.cleanarchitecturesolution.features.character.domain.model.Character
+import com.example.cleanarchitecturesolution.features.character.domain.model.LocationCharacter
 import org.jetbrains.annotations.TestOnly
 
 @TestOnly
@@ -59,4 +61,24 @@ fun CharacterCached.Companion.mock() = CharacterCached(
     status = "test_status",
     type = "test_type",
     url = "test_url",
+)
+
+@TestOnly
+fun LocationCharacter.Companion.mock() = LocationCharacter(
+    name = "test_name",
+    url = "test_url"
+)
+
+@TestOnly
+fun Character.Companion.mock() = Character(episode = listOf(),
+    gender = "test_gender",
+    id = 0,
+    image = "test_image",
+    lastLocation = LocationCharacter.mock(),
+    name = "test_name",
+    originLocation = LocationCharacter.mock(),
+    species = "test_species",
+    status = "test_status",
+    type = "test_type",
+    url = "test_url"
 )

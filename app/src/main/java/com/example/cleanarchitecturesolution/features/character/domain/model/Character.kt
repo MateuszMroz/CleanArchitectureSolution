@@ -11,10 +11,14 @@ data class Character(
     val species: String,
     val status: String,
     val type: String,
-    val url: String
-)
+    val url: String,
+) {
+    companion object
+}
 
 data class LocationCharacter(
     val name: String,
-    val url: String
-)
+    val url: String,
+) {
+    companion object
+}

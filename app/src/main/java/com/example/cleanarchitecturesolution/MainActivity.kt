@@ -3,8 +3,7 @@ package com.example.cleanarchitecturesolution
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
-import com.example.cleanarchitecturesolution.features.episode.presentation.EpisodeFragment
-import com.example.cleanarchitecturesolution.features.location.presentation.LocationFragment
+import com.example.cleanarchitecturesolution.features.character.presentation.CharacterFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
-                replace(R.id.container, EpisodeFragment())
+                replace(R.id.container, CharacterFragment())
             }
         }
     }

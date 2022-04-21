@@ -1,4 +1,4 @@
-package com.example.cleanarchitecturesolution.features.location.presentation
+package com.example.cleanarchitecturesolution.features.character.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,9 +13,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cleanarchitecturesolution.core.extensions.showSnackbar
-import com.example.cleanarchitecturesolution.databinding.FragmentLocationBinding
-import com.example.cleanarchitecturesolution.features.location.presentation.adapter.LocationAdapter
-import com.example.cleanarchitecturesolution.features.location.presentation.model.LocationUiState
+import com.example.cleanarchitecturesolution.databinding.FragmentCharacterBinding
+import com.example.cleanarchitecturesolution.features.character.presentation.adapter.CharacterAdapter
+import com.example.cleanarchitecturesolution.features.character.presentation.model.CharacterDisplayable
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
@@ -25,23 +25,23 @@ import org.koin.androidx.scope.fragmentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.scope.Scope
 
-class LocationFragment : Fragment(), AndroidScopeComponent {
+class CharacterFragment : Fragment(), AndroidScopeComponent {
 
     override val scope: Scope by fragmentScope()
 
-    private var _binding: FragmentLocationBinding? = null
-    private val binding: FragmentLocationBinding
+    private var _binding: FragmentCharacterBinding? = null
+    private val binding: FragmentCharacterBinding
         get() = _binding!!
 
-    private val viewModel: LocationViewModel by viewModel()
-    private val adapter: LocationAdapter by inject()
+    private val viewModel: CharacterViewModel by viewModel()
+    private val adapter: CharacterAdapter by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentLocationBinding.inflate(inflater, container, false)
+        _binding = FragmentCharacterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -61,8 +61,8 @@ class LocationFragment : Fragment(), AndroidScopeComponent {
     }
 
     private fun setupAdapter() {
-        with(binding.locationRv) {
-            adapter = this@LocationFragment.adapter
+        with(binding.characterRv) {
+            adapter = this@CharacterFragment.adapter
             layoutManager = get<LinearLayoutManager>()
             setHasFixedSize(true)
             addItemDecoration(get<DividerItemDecoration>())
@@ -70,12 +70,12 @@ class LocationFragment : Fragment(), AndroidScopeComponent {
     }
 
     private fun observerUiState() {
-        fun showLoader(uiState: LocationUiState) {
-            binding.loader.isVisible = uiState.isFetchingLocation
+        fun showLoader(isLoading: Boolean) {
+            binding.loader.isVisible = isLoading
         }
 
-        fun showLocations(uiState: LocationUiState) {
-            adapter.submitList(uiState.locationItems)
+        fun showCharacters(characters: List<CharacterDisplayable>) {
+            adapter.submitList(characters)
         }
 
         fun showError(message: String?) = with(binding.root) {
@@ -88,8 +88,8 @@ class LocationFragment : Fragment(), AndroidScopeComponent {
                     .flowWithLifecycle(viewLifecycleOwner.lifecycle, STARTED)
                     .distinctUntilChanged()
                     .collect { uiState ->
-                        showLoader(uiState)
-                        showLocations(uiState)
+                        showLoader(uiState.isFetchingCharacter)
+                        showCharacters(uiState.characterItems)
                         showError(uiState.errorMessage)
                     }
             }
@@ -99,4 +99,5 @@ class LocationFragment : Fragment(), AndroidScopeComponent {
     private fun bindViewModelToLifecycle() {
         lifecycle.addObserver(viewModel)
     }
+
 }

@@ -46,5 +46,4 @@ fun Location.Companion.mock() = Location(
     residents = listOf(),
     type = "test_type",
     url = "test_url"
-
 )

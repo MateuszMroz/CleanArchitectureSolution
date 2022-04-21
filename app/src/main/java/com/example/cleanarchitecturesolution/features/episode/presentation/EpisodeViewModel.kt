@@ -22,6 +22,7 @@ class EpisodeViewModel(
     private val _uiState = MutableStateFlow(EpisodeUiState())
     val uiState: StateFlow<EpisodeUiState> = _uiState.asStateFlow()
 
+    // FIXME(During configuration changing fetching data is call again)
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
         fetchEpisodes()

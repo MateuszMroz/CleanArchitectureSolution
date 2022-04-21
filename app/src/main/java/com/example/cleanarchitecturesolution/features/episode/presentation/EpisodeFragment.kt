@@ -27,7 +27,7 @@ import org.koin.androidx.scope.fragmentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.scope.Scope
 
-class EpisodeFragment : Fragment(R.layout.fragment_episode), AndroidScopeComponent {
+class EpisodeFragment : Fragment(), AndroidScopeComponent {
 
     override val scope: Scope by fragmentScope()
 
