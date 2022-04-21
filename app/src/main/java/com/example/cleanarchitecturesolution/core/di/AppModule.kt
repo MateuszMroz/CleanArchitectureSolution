@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
+import com.example.cleanarchitecturesolution.core.exception.*
 import com.example.cleanarchitecturesolution.core.network.NetworkStateProvider
 import com.example.cleanarchitecturesolution.core.network.NetworkStateProviderImpl
 import org.koin.android.ext.koin.androidContext
@@ -18,6 +19,10 @@ val appModule = module {
     factory { LinearLayoutManager(get<Context>()) }
     factory { GridLayoutManager(get<Context>(), SPAN_COUNT) }
     factory { DividerItemDecoration(get<Context>(), VERTICAL) }
+
     factory { androidContext().getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager }
     factory<NetworkStateProvider> { NetworkStateProviderImpl(get()) }
+
+    factory<ErrorWrapper> { ErrorWrapperImpl() }
+    factory<ErrorMapper> { ErrorMapperImpl(androidContext()) }
 }

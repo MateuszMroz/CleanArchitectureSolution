@@ -2,6 +2,7 @@ package com.example.cleanarchitecturesolution.features.episode.data.repository
 
 import com.example.cleanarchitecturesolution.core.data.remote.RickAndMortyApi
 import com.example.cleanarchitecturesolution.core.data.remote.model.EpisodeResponse
+import com.example.cleanarchitecturesolution.core.exception.ErrorWrapper
 import com.example.cleanarchitecturesolution.core.network.NetworkStateProvider
 import com.example.cleanarchitecturesolution.features.episode.EpisodeRepository
 import com.example.cleanarchitecturesolution.features.episode.data.local.EpisodesDao
@@ -20,7 +21,9 @@ import org.junit.jupiter.api.extension.ExtendWith
 @DelicateCoroutinesApi
 @ExperimentalCoroutinesApi
 @ExtendWith(MainDispatcherRule::class)
-internal class EpisodeRepositoryTest {
+internal class EpisodeRepositoryImplTest {
+
+    private val errorWrapper: ErrorWrapper = mockk(relaxed = true)
 
     @Test
     fun `GIVEN network is connected WHEN episodes request THEN fetch episodes from API`() =
@@ -35,7 +38,8 @@ internal class EpisodeRepositoryTest {
             val repository: EpisodeRepository = EpisodeRepositoryImpl(
                 api,
                 episodesDao,
-                networkStateProvider
+                networkStateProvider,
+                errorWrapper
             )
 
             repository.fetchEpisodes()
@@ -56,7 +60,8 @@ internal class EpisodeRepositoryTest {
             val repository: EpisodeRepository = EpisodeRepositoryImpl(
                 api,
                 episodesDao,
-                networkStateProvider
+                networkStateProvider,
+                errorWrapper
             )
 
             repository.fetchEpisodes()
@@ -77,7 +82,8 @@ internal class EpisodeRepositoryTest {
             val repository: EpisodeRepository = EpisodeRepositoryImpl(
                 api,
                 episodesDao,
-                networkStateProvider
+                networkStateProvider,
+                errorWrapper
             )
 
             repository.fetchEpisodes()

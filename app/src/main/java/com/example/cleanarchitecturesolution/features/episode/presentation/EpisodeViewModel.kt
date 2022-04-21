@@ -4,6 +4,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cleanarchitecturesolution.core.exception.ErrorMapper
 import com.example.cleanarchitecturesolution.features.episode.domain.GetEpisodesUseCase
 import com.example.cleanarchitecturesolution.features.episode.domain.model.Episode
 import com.example.cleanarchitecturesolution.features.episode.presentation.model.EpisodeDisplayable
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.update
 // FIXME(Pagination)
 class EpisodeViewModel(
     private val getEpisodesUseCase: GetEpisodesUseCase,
+    private val errorMapper: ErrorMapper,
 ) : ViewModel(), DefaultLifecycleObserver {
 
     private val _uiState = MutableStateFlow(EpisodeUiState())
@@ -34,14 +36,9 @@ class EpisodeViewModel(
             params = Unit,
             scope = viewModelScope,
         ) { result ->
-            result.onSuccess {
-                setLoadingState(isLoading = false)
-                setEpisodesState(it)
-            }
-            result.onFailure {
-                setLoadingState(isLoading = false)
-                handleFailure(it)
-            }
+            setLoadingState(isLoading = false)
+            result.onSuccess { setEpisodesState(it) }
+            result.onFailure { handleError(it) }
         }
     }
 
@@ -59,9 +56,7 @@ class EpisodeViewModel(
         }
     }
 
-    private fun handleFailure(throwable: Throwable) {
-        _uiState.update {
-            it.copy(errorMessage = throwable.message)
-        }
+    private fun handleError(throwable: Throwable) {
+        _uiState.update { it.copy(errorMessage = errorMapper.map(throwable)) }
     }
 }

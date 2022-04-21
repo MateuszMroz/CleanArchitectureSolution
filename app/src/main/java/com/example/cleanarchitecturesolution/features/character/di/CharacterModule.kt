@@ -2,6 +2,7 @@ package com.example.cleanarchitecturesolution.features.character.di
 
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import com.example.cleanarchitecturesolution.core.data.remote.RickAndMortyApi
+import com.example.cleanarchitecturesolution.core.exception.ErrorMapper
 import com.example.cleanarchitecturesolution.features.character.CharacterRepository
 import com.example.cleanarchitecturesolution.features.character.data.repository.CharacterRepositoryImpl
 import com.example.cleanarchitecturesolution.features.character.domain.GetCharactersUseCase
@@ -15,11 +16,12 @@ import org.koin.dsl.module
 
 val characterModule = module {
     scope<CharacterFragment> {
-        viewModel { CharacterViewModel(get<GetCharactersUseCase>()) }
+        viewModel { CharacterViewModel(get<GetCharactersUseCase>(), get<ErrorMapper>()) }
 
         scoped<CharacterRepository> {
             CharacterRepositoryImpl(
                 get<RickAndMortyApi>(),
+                get(),
                 get(),
                 get()
             )

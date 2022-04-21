@@ -2,6 +2,7 @@ package com.example.cleanarchitecturesolution.features.episode.di
 
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import com.example.cleanarchitecturesolution.core.data.remote.RickAndMortyApi
+import com.example.cleanarchitecturesolution.core.exception.ErrorMapper
 import com.example.cleanarchitecturesolution.features.episode.EpisodeRepository
 import com.example.cleanarchitecturesolution.features.episode.data.repository.EpisodeRepositoryImpl
 import com.example.cleanarchitecturesolution.features.episode.domain.GetEpisodesUseCase
@@ -15,9 +16,14 @@ import org.koin.dsl.module
 
 val episodeModule = module {
     scope<EpisodeFragment> {
-        viewModel { EpisodeViewModel(get<GetEpisodesUseCase>()) }
+        viewModel { EpisodeViewModel(get<GetEpisodesUseCase>(), get<ErrorMapper>()) }
 
-        scoped<EpisodeRepository> { EpisodeRepositoryImpl(get<RickAndMortyApi>(), get(), get()) }
+        scoped<EpisodeRepository> {
+            EpisodeRepositoryImpl(get<RickAndMortyApi>(),
+                get(),
+                get(),
+                get())
+        }
         scoped { GetEpisodesUseCase(get<EpisodeRepository>()) }
         scoped<ItemCallback<EpisodeDisplayable>> { EpisodeDiffCallback() }
         scoped { EpisodeAdapter(get<ItemCallback<EpisodeDisplayable>>()) }

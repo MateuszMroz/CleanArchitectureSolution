@@ -4,6 +4,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cleanarchitecturesolution.core.exception.ErrorMapper
 import com.example.cleanarchitecturesolution.features.character.domain.GetCharactersUseCase
 import com.example.cleanarchitecturesolution.features.character.domain.model.Character
 import com.example.cleanarchitecturesolution.features.character.presentation.model.CharacterDisplayable
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.update
 // FIXME(Pagination)
 class CharacterViewModel(
     private val getCharactersUseCase: GetCharactersUseCase,
+    private val errorMapper: ErrorMapper,
 ) : ViewModel(), DefaultLifecycleObserver {
 
     private val _uiState = MutableStateFlow(CharacterUiState())
@@ -35,7 +37,7 @@ class CharacterViewModel(
         ) { result ->
             setLoadingState(isLoading = false)
             result.onSuccess { setCharactersState(it) }
-            result.onFailure { handleFailure(it) }
+            result.onFailure { handleError(it) }
         }
     }
 
@@ -53,10 +55,7 @@ class CharacterViewModel(
         }
     }
 
-    private fun handleFailure(throwable: Throwable) {
-        _uiState.update {
-            it.copy(errorMessage = throwable.message)
-        }
+    private fun handleError(throwable: Throwable) {
+        _uiState.update { it.copy(errorMessage = errorMapper.map(throwable)) }
     }
-
 }

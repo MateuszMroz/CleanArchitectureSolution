@@ -1,6 +1,8 @@
 package com.example.cleanarchitecturesolution.features.location.data.repository
 
 import com.example.cleanarchitecturesolution.core.data.remote.RickAndMortyApi
+import com.example.cleanarchitecturesolution.core.exception.ErrorWrapper
+import com.example.cleanarchitecturesolution.core.exception.callOrThrow
 import com.example.cleanarchitecturesolution.core.network.NetworkStateProvider
 import com.example.cleanarchitecturesolution.features.location.LocationRepository
 import com.example.cleanarchitecturesolution.features.location.data.local.LocationDao
@@ -11,11 +13,12 @@ class LocationRepositoryImpl(
     private val api: RickAndMortyApi,
     private val locationDao: LocationDao,
     private val networkStateProvider: NetworkStateProvider,
+    private val errorWrapper: ErrorWrapper,
 ) : LocationRepository {
 
     override suspend fun fetchLocations(): List<Location> {
         return if (networkStateProvider.isNetworkAvailable()) {
-            getLocationsFromRemote()
+            callOrThrow(errorWrapper) { getLocationsFromRemote() }
                 .also { saveLocationsToLocal(it) }
         } else {
             getLocationsFromLocal()
