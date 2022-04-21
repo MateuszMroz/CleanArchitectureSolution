@@ -26,7 +26,7 @@ class EpisodeAdapter(itemCallback: ItemCallback<EpisodeDisplayable>) :
         ViewHolder(binding.root) {
 
         fun bind(episode: EpisodeDisplayable) {
-            binding.item.text = episode.name
+            "${episode.code} - ${episode.name}".also { binding.item.text = it }
         }
     }
 }

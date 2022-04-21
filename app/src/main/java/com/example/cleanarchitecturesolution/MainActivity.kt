@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import com.example.cleanarchitecturesolution.features.episode.presentation.EpisodeFragment
+import com.example.cleanarchitecturesolution.features.location.presentation.LocationFragment
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,41 +1,39 @@
-package com.example.cleanarchitecturesolution.features.episode.presentation
+package com.example.cleanarchitecturesolution.features.location.presentation
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cleanarchitecturesolution.features.episode.domain.GetEpisodesUseCase
-import com.example.cleanarchitecturesolution.features.episode.domain.model.Episode
-import com.example.cleanarchitecturesolution.features.episode.presentation.model.EpisodeDisplayable
-import com.example.cleanarchitecturesolution.features.episode.presentation.model.EpisodeUiState
+import com.example.cleanarchitecturesolution.features.location.domain.GetLocationsUseCase
+import com.example.cleanarchitecturesolution.features.location.domain.model.Location
+import com.example.cleanarchitecturesolution.features.location.presentation.model.LocationDisplayable
+import com.example.cleanarchitecturesolution.features.location.presentation.model.LocationUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-// FIXME(Rewrite to MVI)
-// FIXME(Pagination)
-class EpisodeViewModel(
-    private val getEpisodesUseCase: GetEpisodesUseCase,
+class LocationViewModel(
+    private val getLocationsUseCase: GetLocationsUseCase,
 ) : ViewModel(), DefaultLifecycleObserver {
 
-    private val _uiState = MutableStateFlow(EpisodeUiState())
-    val uiState: StateFlow<EpisodeUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(LocationUiState())
+    val uiState: StateFlow<LocationUiState> = _uiState.asStateFlow()
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
-        fetchEpisodes()
+        fetchLocations()
     }
 
-    private fun fetchEpisodes() {
+    private fun fetchLocations() {
         setLoadingState(isLoading = true)
-        getEpisodesUseCase(
+        getLocationsUseCase(
             params = Unit,
             scope = viewModelScope,
         ) { result ->
             result.onSuccess {
                 setLoadingState(isLoading = false)
-                setEpisodesState(it)
+                setLocationsState(it)
             }
             result.onFailure {
                 setLoadingState(isLoading = false)
@@ -44,17 +42,17 @@ class EpisodeViewModel(
         }
     }
 
-    private fun setEpisodesState(episodes: List<Episode>) {
+    private fun setLocationsState(locations: List<Location>) {
         _uiState.update {
-            it.copy(episodeItems = episodes.map { episode ->
-                EpisodeDisplayable(episode)
+            it.copy(locationItems = locations.map { location ->
+                LocationDisplayable(location)
             })
         }
     }
 
     private fun setLoadingState(isLoading: Boolean) {
         _uiState.update {
-            it.copy(isFetchingEpisode = isLoading)
+            it.copy(isFetchingLocation = isLoading)
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.cleanarchitecturesolution.features.episode.presentation
+package com.example.cleanarchitecturesolution.features.location.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle.State.STARTED
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -14,9 +14,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cleanarchitecturesolution.R
 import com.example.cleanarchitecturesolution.core.extensions.showSnackbar
-import com.example.cleanarchitecturesolution.databinding.FragmentEpisodeBinding
-import com.example.cleanarchitecturesolution.features.episode.presentation.adapter.EpisodeAdapter
-import com.example.cleanarchitecturesolution.features.episode.presentation.model.EpisodeDisplayable
+import com.example.cleanarchitecturesolution.databinding.FragmentLocationBinding
+import com.example.cleanarchitecturesolution.features.location.presentation.adapter.LocationAdapter
 import com.example.cleanarchitecturesolution.features.location.presentation.model.LocationUiState
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
@@ -27,23 +26,23 @@ import org.koin.androidx.scope.fragmentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.scope.Scope
 
-class EpisodeFragment : Fragment(R.layout.fragment_episode), AndroidScopeComponent {
+class LocationFragment : Fragment(R.layout.fragment_location), AndroidScopeComponent {
 
     override val scope: Scope by fragmentScope()
 
-    private var _binding: FragmentEpisodeBinding? = null
-    private val binding: FragmentEpisodeBinding
+    private var _binding: FragmentLocationBinding? = null
+    private val binding: FragmentLocationBinding
         get() = _binding!!
 
-    private val viewModel: EpisodeViewModel by viewModel()
-    private val adapter: EpisodeAdapter by inject()
+    private val viewModel: LocationViewModel by viewModel()
+    private val adapter: LocationAdapter by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentEpisodeBinding.inflate(inflater, container, false)
+        _binding = FragmentLocationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -63,8 +62,8 @@ class EpisodeFragment : Fragment(R.layout.fragment_episode), AndroidScopeCompone
     }
 
     private fun setupAdapter() {
-        with(binding.episodeRv) {
-            adapter = this@EpisodeFragment.adapter
+        with(binding.locationRv) {
+            adapter = this@LocationFragment.adapter
             layoutManager = get<LinearLayoutManager>()
             setHasFixedSize(true)
             addItemDecoration(get<DividerItemDecoration>())
@@ -72,12 +71,12 @@ class EpisodeFragment : Fragment(R.layout.fragment_episode), AndroidScopeCompone
     }
 
     private fun observerUiState() {
-        fun showLoader(isLoading: Boolean) {
-            binding.loader.isVisible = isLoading
+        fun showLoader(uiState: LocationUiState) {
+            binding.loader.isVisible = uiState.isFetchingLocation
         }
 
-        fun showEpisodes(episodes: List<EpisodeDisplayable>) {
-            adapter.submitList(episodes)
+        fun showLocations(uiState: LocationUiState) {
+            adapter.submitList(uiState.locationItems)
         }
 
         fun showError(message: String?) = with(binding.root) {
@@ -85,13 +84,13 @@ class EpisodeFragment : Fragment(R.layout.fragment_episode), AndroidScopeCompone
         }
 
         lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState
-                    .flowWithLifecycle(viewLifecycleOwner.lifecycle, STARTED)
+                    .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                     .distinctUntilChanged()
                     .collect { uiState ->
-                        showLoader(uiState.isFetchingEpisode)
-                        showEpisodes(uiState.episodeItems)
+                        showLoader(uiState)
+                        showLocations(uiState)
                         showError(uiState.errorMessage)
                     }
             }

@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.episode.presentation.EpisodeFragment">
+    tools:context=".features.location.presentation.LocationFragment">
+
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/episode_rv"
+        android:id="@+id/location_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
