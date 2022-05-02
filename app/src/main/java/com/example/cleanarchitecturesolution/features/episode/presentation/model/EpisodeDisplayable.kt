@@ -2,7 +2,7 @@ package com.example.cleanarchitecturesolution.features.episode.presentation.mode
 
 import com.example.cleanarchitecturesolution.features.episode.domain.model.Episode
 
-class EpisodeDisplayable(
+data class EpisodeDisplayable(
     val airDate: String,
     val characters: List<String>,
     val code: String,
@@ -19,3 +19,9 @@ class EpisodeDisplayable(
         episode.url
     )
 }
+
+data class EpisodeUiState(
+    val isFetchingEpisode: Boolean = false,
+    val episodeItems: List<EpisodeDisplayable> = listOf(),
+    val errorMessage: String? = null
+)

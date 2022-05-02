@@ -14,7 +14,7 @@ data class CharacterDisplayable(
     val species: String,
     val status: String,
     val type: String,
-    val url: String
+    val url: String,
 ) {
     constructor(character: Character) : this(
         character.episode,
@@ -33,10 +33,16 @@ data class CharacterDisplayable(
 
 data class LocationCharacterDisplayable(
     val name: String,
-    val url: String
+    val url: String,
 ) {
     constructor(locationCharacter: LocationCharacter) : this(
         locationCharacter.name,
         locationCharacter.url
     )
 }
+
+data class CharacterUiState(
+    val isFetchingCharacter: Boolean = false,
+    val characterItems: List<CharacterDisplayable> = listOf(),
+    val errorMessage: String? = null,
+)

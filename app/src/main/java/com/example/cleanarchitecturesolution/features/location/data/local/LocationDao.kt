@@ -1,10 +1,12 @@
 package com.example.cleanarchitecturesolution.features.location.data.local
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.example.cleanarchitecturesolution.features.location.data.local.model.LocationCached
 
+@Dao
 interface LocationDao {
 
     @Insert(onConflict = REPLACE)

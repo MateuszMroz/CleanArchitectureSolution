@@ -4,6 +4,7 @@ import com.example.cleanarchitecturesolution.core.data.remote.model.LocationRemo
 import com.example.cleanarchitecturesolution.core.data.remote.model.LocationResponse
 import com.example.cleanarchitecturesolution.core.data.remote.model.ResponseInfo
 import com.example.cleanarchitecturesolution.features.location.data.local.model.LocationCached
+import com.example.cleanarchitecturesolution.features.location.domain.model.Location
 import org.jetbrains.annotations.TestOnly
 
 @TestOnly
@@ -31,6 +32,16 @@ fun LocationResponse.Companion.mock() = LocationResponse(
 fun LocationCached.Companion.mock() = LocationCached(
     id = 0,
     dimension = "test_dimension",
+    name = "test_name",
+    residents = listOf(),
+    type = "test_type",
+    url = "test_url"
+)
+
+@TestOnly
+fun Location.Companion.mock() = Location(
+    dimension = "test_dimension",
+    id = 0,
     name = "test_name",
     residents = listOf(),
     type = "test_type",

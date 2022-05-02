@@ -7,16 +7,16 @@ import com.example.cleanarchitecturesolution.features.location.domain.model.Loca
 @Entity(tableName = "location")
 data class LocationCached(
     @PrimaryKey
-    val dimension: String,
     val id: Int,
+    val dimension: String,
     val name: String,
     val residents: List<String>,
     val type: String,
     val url: String,
 ) {
     constructor(location: Location) : this(
-        location.dimension,
         location.id,
+        location.dimension,
         location.name,
         location.residents,
         location.type,

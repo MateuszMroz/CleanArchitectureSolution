@@ -19,3 +19,9 @@ data class LocationDisplayable(
         location.url
     )
 }
+
+data class LocationUiState(
+    val isFetchingLocation: Boolean = false,
+    val locationItems: List<LocationDisplayable> = listOf(),
+    val errorMessage: String? = null,
+)

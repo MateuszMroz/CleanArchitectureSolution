@@ -4,7 +4,7 @@ import com.example.cleanarchitecturesolution.core.data.remote.RickAndMortyApi
 import com.example.cleanarchitecturesolution.core.data.remote.model.CharacterResponse
 import com.example.cleanarchitecturesolution.core.network.NetworkStateProvider
 import com.example.cleanarchitecturesolution.features.character.CharacterRepository
-import com.example.cleanarchitecturesolution.features.character.data.CharacterDao
+import com.example.cleanarchitecturesolution.features.character.data.local.CharacterDao
 import com.example.cleanarchitecturesolution.features.character.data.local.CharacterCached
 import com.example.cleanarchitecturesolution.mock.mock
 import com.example.cleanarchitecturesolution.rules.MainDispatcherRule

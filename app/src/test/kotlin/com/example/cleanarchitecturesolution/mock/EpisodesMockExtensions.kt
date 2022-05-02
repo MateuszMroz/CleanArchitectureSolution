@@ -4,6 +4,7 @@ import com.example.cleanarchitecturesolution.core.data.remote.model.EpisodeRemot
 import com.example.cleanarchitecturesolution.core.data.remote.model.EpisodeResponse
 import com.example.cleanarchitecturesolution.core.data.remote.model.ResponseInfo
 import com.example.cleanarchitecturesolution.features.episode.data.local.model.EpisodeCached
+import com.example.cleanarchitecturesolution.features.episode.domain.model.Episode
 import org.jetbrains.annotations.TestOnly
 
 @TestOnly
@@ -34,5 +35,15 @@ fun EpisodeCached.Companion.mock() = EpisodeCached(
     airDate = "test_airData",
     code = "test_code",
     characters = emptyList(),
+    url = "test_url"
+)
+
+@TestOnly
+fun Episode.Companion.mock() = Episode(
+    airDate = "test_airDate",
+    characters = listOf(),
+    code = "test_code",
+    id = 1,
+    name = "test_name",
     url = "test_url"
 )

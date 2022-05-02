@@ -3,9 +3,8 @@ package com.example.cleanarchitecturesolution.core.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.cleanarchitecturesolution.features.character.data.CharacterDao
+import com.example.cleanarchitecturesolution.features.character.data.local.CharacterDao
 import com.example.cleanarchitecturesolution.features.character.data.local.CharacterCached
-import com.example.cleanarchitecturesolution.features.character.data.local.LocationCharacterCached
 import com.example.cleanarchitecturesolution.features.episode.data.local.EpisodesDao
 import com.example.cleanarchitecturesolution.features.episode.data.local.model.EpisodeCached
 import com.example.cleanarchitecturesolution.features.location.data.local.LocationDao
@@ -16,7 +15,6 @@ import com.example.cleanarchitecturesolution.features.location.data.local.model.
         CharacterCached::class,
         EpisodeCached::class,
         LocationCached::class,
-        LocationCharacterCached::class,
     ],
     version = 1
 )

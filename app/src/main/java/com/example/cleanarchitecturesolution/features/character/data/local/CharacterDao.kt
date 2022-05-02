@@ -1,10 +1,9 @@
-package com.example.cleanarchitecturesolution.features.character.data
+package com.example.cleanarchitecturesolution.features.character.data.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import com.example.cleanarchitecturesolution.features.character.data.local.CharacterCached
 
 @Dao
 interface CharacterDao {
