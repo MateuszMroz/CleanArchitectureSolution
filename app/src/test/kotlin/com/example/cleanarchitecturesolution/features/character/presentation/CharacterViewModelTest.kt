@@ -2,6 +2,7 @@ package com.example.cleanarchitecturesolution.features.character.presentation
 
 import androidx.lifecycle.LifecycleOwner
 import app.cash.turbine.test
+import com.example.cleanarchitecturesolution.core.exception.ErrorMapper
 import com.example.cleanarchitecturesolution.features.character.domain.GetCharactersUseCase
 import com.example.cleanarchitecturesolution.features.character.domain.model.Character
 import com.example.cleanarchitecturesolution.features.location.domain.model.Location
@@ -15,6 +16,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should be`
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -25,8 +27,9 @@ internal class CharacterViewModelTest {
 
     @Test
     fun `WHEN uiState is observed THEN set loading state`() = runTest {
+        val errorMapper = mockk<ErrorMapper>()
         val useCase: GetCharactersUseCase = mockk(relaxed = true)
-        val viewModel = CharacterViewModel(useCase)
+        val viewModel = CharacterViewModel(useCase, errorMapper)
         val lifecycleOwner: LifecycleOwner = mockk(relaxed = true)
 
         viewModel.uiState.test {
@@ -40,8 +43,9 @@ internal class CharacterViewModelTest {
 
     @Test
     fun `WHEN uiState is observed THEN invoke use case to get characters`() = runTest {
+        val errorMapper = mockk<ErrorMapper>()
         val useCase: GetCharactersUseCase = mockk(relaxed = true)
-        val viewModel = CharacterViewModel(useCase)
+        val viewModel = CharacterViewModel(useCase, errorMapper)
         val lifecycleOwner: LifecycleOwner = mockk(relaxed = true)
 
         viewModel.onCreate(lifecycleOwner)
@@ -59,6 +63,7 @@ internal class CharacterViewModelTest {
     @Test
     fun `GIVEN use case result is success WHEN uiState is observed THEN set loading state AND set result in uiState`() =
         runTest {
+            val errorMapper = mockk<ErrorMapper>()
             val characters = listOf(Character.mock(), Character.mock(), Character.mock())
             val useCase = mockk<GetCharactersUseCase> {
                 every {
@@ -73,7 +78,7 @@ internal class CharacterViewModelTest {
                 }
             }
             val lifecycleOwner: LifecycleOwner = mockk(relaxed = true)
-            val viewModel = CharacterViewModel(useCase)
+            val viewModel = CharacterViewModel(useCase, errorMapper)
 
             viewModel.uiState.test {
                 viewModel.onCreate(lifecycleOwner)
@@ -93,6 +98,9 @@ internal class CharacterViewModelTest {
     fun `GIVEN use case result is failure WHEN uiState is observed THEN set loading state AND set error message in uiState`() =
         runTest {
             val error = Throwable("Something went wrong.")
+            val errorMapper = mockk<ErrorMapper>() {
+                every { map(any()) } returns "Something went wrong."
+            }
             val useCase = mockk<GetCharactersUseCase> {
                 every {
                     this@mockk(
@@ -107,7 +115,7 @@ internal class CharacterViewModelTest {
             }
 
             val lifecycleOwner: LifecycleOwner = mockk(relaxed = true)
-            val viewModel = CharacterViewModel(useCase)
+            val viewModel = CharacterViewModel(useCase, errorMapper)
 
             viewModel.uiState.test {
                 viewModel.onCreate(lifecycleOwner)

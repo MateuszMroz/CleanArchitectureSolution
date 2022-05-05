@@ -2,6 +2,7 @@ package com.example.cleanarchitecturesolution.features.location.data.repository
 
 import com.example.cleanarchitecturesolution.core.data.remote.RickAndMortyApi
 import com.example.cleanarchitecturesolution.core.data.remote.model.LocationResponse
+import com.example.cleanarchitecturesolution.core.exception.ErrorWrapper
 import com.example.cleanarchitecturesolution.core.network.NetworkStateProvider
 import com.example.cleanarchitecturesolution.features.location.LocationRepository
 import com.example.cleanarchitecturesolution.features.location.data.local.LocationDao
@@ -22,6 +23,8 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(MainDispatcherRule::class)
 internal class LocationRepositoryImplTest {
 
+    private var errorWrapper: ErrorWrapper = mockk(relaxed = true)
+
     @Test
     fun `GIVEN network is connected WHEN locations request THEN fetch locations from API`() =
         runTest {
@@ -35,7 +38,8 @@ internal class LocationRepositoryImplTest {
             val repository: LocationRepository = LocationRepositoryImpl(
                 api,
                 locationDao,
-                networkStateProvider
+                networkStateProvider,
+                errorWrapper
             )
 
             repository.fetchLocations()
@@ -56,7 +60,8 @@ internal class LocationRepositoryImplTest {
             val repository: LocationRepository = LocationRepositoryImpl(
                 api,
                 locationDao,
-                networkStateProvider
+                networkStateProvider,
+                errorWrapper
             )
 
             repository.fetchLocations()
@@ -78,7 +83,8 @@ internal class LocationRepositoryImplTest {
             val repository: LocationRepository = LocationRepositoryImpl(
                 api,
                 locationDao,
-                networkStateProvider
+                networkStateProvider,
+                errorWrapper
             )
 
             repository.fetchLocations()

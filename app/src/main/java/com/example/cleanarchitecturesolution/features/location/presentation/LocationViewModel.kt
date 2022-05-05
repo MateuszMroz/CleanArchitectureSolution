@@ -4,6 +4,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.cleanarchitecturesolution.core.exception.ErrorMapper
 import com.example.cleanarchitecturesolution.features.location.domain.GetLocationsUseCase
 import com.example.cleanarchitecturesolution.features.location.domain.model.Location
 import com.example.cleanarchitecturesolution.features.location.presentation.model.LocationDisplayable
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.update
 // FIXME(Pagination)
 class LocationViewModel(
     private val getLocationsUseCase: GetLocationsUseCase,
+    private val errorMapper: ErrorMapper,
 ) : ViewModel(), DefaultLifecycleObserver {
 
     private val _uiState = MutableStateFlow(LocationUiState())
@@ -34,14 +36,9 @@ class LocationViewModel(
             params = Unit,
             scope = viewModelScope,
         ) { result ->
-            result.onSuccess {
-                setLoadingState(isLoading = false)
-                setLocationsState(it)
-            }
-            result.onFailure {
-                setLoadingState(isLoading = false)
-                handleFailure(it)
-            }
+            setLoadingState(isLoading = false)
+            result.onSuccess { setLocationsState(it) }
+            result.onFailure { handleError(it) }
         }
     }
 
@@ -59,9 +56,7 @@ class LocationViewModel(
         }
     }
 
-    private fun handleFailure(throwable: Throwable) {
-        _uiState.update {
-            it.copy(errorMessage = throwable.message)
-        }
+    private fun handleError(throwable: Throwable) {
+        _uiState.update { it.copy(errorMessage = errorMapper.map(throwable)) }
     }
 }

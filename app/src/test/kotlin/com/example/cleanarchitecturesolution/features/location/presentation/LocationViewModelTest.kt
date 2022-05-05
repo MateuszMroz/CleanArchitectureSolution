@@ -2,6 +2,7 @@ package com.example.cleanarchitecturesolution.features.location.presentation
 
 import androidx.lifecycle.LifecycleOwner
 import app.cash.turbine.test
+import com.example.cleanarchitecturesolution.core.exception.ErrorMapper
 import com.example.cleanarchitecturesolution.features.location.domain.GetLocationsUseCase
 import com.example.cleanarchitecturesolution.features.location.domain.model.Location
 import com.example.cleanarchitecturesolution.mock.mock
@@ -24,8 +25,9 @@ internal class LocationViewModelTest {
 
     @Test
     fun `WHEN uiState is observed THEN set loading state`() = runTest {
+        val errorMapper = mockk<ErrorMapper>()
         val useCase: GetLocationsUseCase = mockk(relaxed = true)
-        val viewModel = LocationViewModel(useCase)
+        val viewModel = LocationViewModel(useCase, errorMapper)
         val lifecycleOwner: LifecycleOwner = mockk(relaxed = true)
 
         viewModel.uiState.test {
@@ -40,8 +42,9 @@ internal class LocationViewModelTest {
 
     @Test
     fun `WHEN uiState is observed THEN invoke use case to get locations`() = runTest {
+        val errorMapper = mockk<ErrorMapper>()
         val useCase: GetLocationsUseCase = mockk(relaxed = true)
-        val viewModel = LocationViewModel(useCase)
+        val viewModel = LocationViewModel(useCase, errorMapper)
         val lifecycleOwner: LifecycleOwner = mockk(relaxed = true)
 
         viewModel.onCreate(lifecycleOwner)
@@ -59,6 +62,7 @@ internal class LocationViewModelTest {
     @Test
     fun `GIVEN use case result is success WHEN uiState is observed THEN set loading state AND set result in uiState`() =
         runTest {
+            val errorMapper = mockk<ErrorMapper>()
             val locations = listOf(Location.mock(), Location.mock(), Location.mock())
             val useCase = mockk<GetLocationsUseCase> {
                 every {
@@ -74,7 +78,7 @@ internal class LocationViewModelTest {
             }
 
             val lifecycleOwner: LifecycleOwner = mockk(relaxed = true)
-            val viewModel = LocationViewModel(useCase)
+            val viewModel = LocationViewModel(useCase, errorMapper)
 
             viewModel.uiState.test {
                 viewModel.onCreate(lifecycleOwner)
@@ -93,7 +97,10 @@ internal class LocationViewModelTest {
     @Test
     fun `GIVEN use case result is failure WHEN uiState is observed THEN set loading state AND set error message in uiState`() =
         runTest {
-            val error = Throwable("Something went wrong.")
+            val error = Throwable()
+            val errorMapper = mockk<ErrorMapper>() {
+                every { map(any()) } returns "Something went wrong."
+            }
             val useCase = mockk<GetLocationsUseCase> {
                 every {
                     this@mockk(
@@ -106,9 +113,8 @@ internal class LocationViewModelTest {
                     lastArg<(Result<List<Location>>) -> Unit>()(Result.failure(error))
                 }
             }
-
             val lifecycleOwner: LifecycleOwner = mockk(relaxed = true)
-            val viewModel = LocationViewModel(useCase)
+            val viewModel = LocationViewModel(useCase, errorMapper)
 
             viewModel.uiState.test {
                 viewModel.onCreate(lifecycleOwner)

@@ -2,6 +2,7 @@ package com.example.cleanarchitecturesolution.features.episode.presentation
 
 import androidx.lifecycle.LifecycleOwner
 import app.cash.turbine.test
+import com.example.cleanarchitecturesolution.core.exception.ErrorMapper
 import com.example.cleanarchitecturesolution.features.episode.domain.GetEpisodesUseCase
 import com.example.cleanarchitecturesolution.features.episode.domain.model.Episode
 import com.example.cleanarchitecturesolution.mock.mock
@@ -24,8 +25,9 @@ internal class EpisodeViewModelTest {
 
     @Test
     fun `WHEN uiState is observed THEN set loading state`() = runTest {
+        val errorMapper = mockk<ErrorMapper>()
         val useCase: GetEpisodesUseCase = mockk(relaxed = true)
-        val viewModel = EpisodeViewModel(useCase)
+        val viewModel = EpisodeViewModel(useCase, errorMapper)
         val lifecycleOwner: LifecycleOwner = mockk(relaxed = true)
 
         viewModel.uiState.test {
@@ -40,8 +42,9 @@ internal class EpisodeViewModelTest {
 
     @Test
     fun `WHEN uiState is observed THEN invoke use case to get episodes`() = runTest {
+        val errorMapper = mockk<ErrorMapper>()
         val useCase: GetEpisodesUseCase = mockk(relaxed = true)
-        val viewModel = EpisodeViewModel(useCase)
+        val viewModel = EpisodeViewModel(useCase, errorMapper)
         val lifecycleOwner: LifecycleOwner = mockk(relaxed = true)
 
         viewModel.onCreate(lifecycleOwner)
@@ -59,6 +62,7 @@ internal class EpisodeViewModelTest {
     @Test
     fun `GIVEN use case result is success WHEN uiState is observed THEN set loading state AND set result in uiState`() =
         runTest {
+            val errorMapper = mockk<ErrorMapper>()
             val episodes = listOf(Episode.mock(), Episode.mock(), Episode.mock())
             val useCase = mockk<GetEpisodesUseCase> {
                 every {
@@ -74,7 +78,7 @@ internal class EpisodeViewModelTest {
             }
 
             val lifecycleOwner: LifecycleOwner = mockk(relaxed = true)
-            val viewModel = EpisodeViewModel(useCase)
+            val viewModel = EpisodeViewModel(useCase, errorMapper)
 
             viewModel.uiState.test {
                 viewModel.onCreate(lifecycleOwner)
@@ -95,6 +99,9 @@ internal class EpisodeViewModelTest {
     fun `GIVEN use case result is failure WHEN uiState is observed THEN set loading state AND set error message in uiState`() =
         runTest {
             val error = Throwable("Something went wrong.")
+            val errorMapper = mockk<ErrorMapper>() {
+                every { map(any()) } returns "Something went wrong."
+            }
             val useCase = mockk<GetEpisodesUseCase> {
                 every {
                     this@mockk(
@@ -109,7 +116,7 @@ internal class EpisodeViewModelTest {
             }
 
             val lifecycleOwner: LifecycleOwner = mockk(relaxed = true)
-            val viewModel = EpisodeViewModel(useCase)
+            val viewModel = EpisodeViewModel(useCase, errorMapper)
 
             viewModel.uiState.test {
                 viewModel.onCreate(lifecycleOwner)

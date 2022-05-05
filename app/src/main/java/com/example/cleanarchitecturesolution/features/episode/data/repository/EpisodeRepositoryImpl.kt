@@ -1,6 +1,8 @@
 package com.example.cleanarchitecturesolution.features.episode.data.repository
 
 import com.example.cleanarchitecturesolution.core.data.remote.RickAndMortyApi
+import com.example.cleanarchitecturesolution.core.exception.ErrorWrapper
+import com.example.cleanarchitecturesolution.core.exception.callOrThrow
 import com.example.cleanarchitecturesolution.core.network.NetworkStateProvider
 import com.example.cleanarchitecturesolution.features.episode.EpisodeRepository
 import com.example.cleanarchitecturesolution.features.episode.data.local.EpisodesDao
@@ -11,11 +13,12 @@ class EpisodeRepositoryImpl(
     private val api: RickAndMortyApi,
     private val episodesDao: EpisodesDao,
     private val networkStateProvider: NetworkStateProvider,
+    private val errorWrapper: ErrorWrapper,
 ) : EpisodeRepository {
 
     override suspend fun fetchEpisodes(): List<Episode> {
         return if (networkStateProvider.isNetworkAvailable()) {
-            getEpisodesFromRemote()
+            callOrThrow(errorWrapper) { getEpisodesFromRemote() }
                 .also { saveEpisodesToLocal(it) }
         } else {
             getEpisodesFromLocal()

@@ -2,10 +2,11 @@ package com.example.cleanarchitecturesolution.features.character.data.repository
 
 import com.example.cleanarchitecturesolution.core.data.remote.RickAndMortyApi
 import com.example.cleanarchitecturesolution.core.data.remote.model.CharacterResponse
+import com.example.cleanarchitecturesolution.core.exception.ErrorWrapper
 import com.example.cleanarchitecturesolution.core.network.NetworkStateProvider
 import com.example.cleanarchitecturesolution.features.character.CharacterRepository
-import com.example.cleanarchitecturesolution.features.character.data.local.CharacterDao
 import com.example.cleanarchitecturesolution.features.character.data.local.CharacterCached
+import com.example.cleanarchitecturesolution.features.character.data.local.CharacterDao
 import com.example.cleanarchitecturesolution.mock.mock
 import com.example.cleanarchitecturesolution.rules.MainDispatcherRule
 import io.mockk.coEvery
@@ -22,6 +23,8 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(MainDispatcherRule::class)
 internal class CharacterRepositoryImplTest {
 
+    private var errorWrapper: ErrorWrapper = mockk(relaxed = true)
+
     @Test
     fun `GIVEN network is connected WHEN characters request THEN fetch characters from API`() =
         runTest {
@@ -35,7 +38,8 @@ internal class CharacterRepositoryImplTest {
             val repository: CharacterRepository = CharacterRepositoryImpl(
                 api,
                 characterDao,
-                networkStateProvider
+                networkStateProvider,
+                errorWrapper
             )
 
             repository.fetchCharacters()
@@ -56,7 +60,8 @@ internal class CharacterRepositoryImplTest {
             val repository: CharacterRepository = CharacterRepositoryImpl(
                 api,
                 characterDao,
-                networkStateProvider
+                networkStateProvider,
+                errorWrapper
             )
 
             repository.fetchCharacters()
@@ -80,7 +85,8 @@ internal class CharacterRepositoryImplTest {
             val repository: CharacterRepository = CharacterRepositoryImpl(
                 api,
                 characterDao,
-                networkStateProvider
+                networkStateProvider,
+                errorWrapper
             )
 
             repository.fetchCharacters()
