@@ -1,10 +1,12 @@
 package com.example.cleanarchitecturesolution.features.character.all.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.cleanarchitecturesolution.R
 import com.example.cleanarchitecturesolution.databinding.ItemCharacterBinding
 import com.example.cleanarchitecturesolution.features.character.all.presentation.model.CharacterDisplayable
 
@@ -14,9 +16,9 @@ class CharacterAdapter(itemCallback: ItemCallback<CharacterDisplayable>) :
     lateinit var onClick: (Int) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
-        val binding =
-            ItemCharacterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CharacterViewHolder(binding, onClick)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_character, parent, false)
+        return CharacterViewHolder(view, onClick)
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
@@ -25,10 +27,10 @@ class CharacterAdapter(itemCallback: ItemCallback<CharacterDisplayable>) :
     }
 
     inner class CharacterViewHolder(
-        private val binding: ItemCharacterBinding,
+        view: View,
         private val onClick: (Int) -> Unit,
-    ) : ViewHolder(binding.root) {
-
+    ) : ViewHolder(view) {
+        private val binding = ItemCharacterBinding.bind(view)
         private var characterId: Int? = null
 
         init {

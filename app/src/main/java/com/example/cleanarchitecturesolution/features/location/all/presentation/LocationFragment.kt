@@ -1,9 +1,7 @@
 package com.example.cleanarchitecturesolution.features.location.all.presentation
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle.State.STARTED
@@ -12,7 +10,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cleanarchitecturesolution.R
 import com.example.cleanarchitecturesolution.core.extensions.showSnackbar
+import com.example.cleanarchitecturesolution.core.extensions.viewBinding
 import com.example.cleanarchitecturesolution.databinding.FragmentLocationBinding
 import com.example.cleanarchitecturesolution.features.location.all.presentation.adapter.LocationAdapter
 import com.example.cleanarchitecturesolution.features.location.all.presentation.model.LocationUiState
@@ -25,25 +25,13 @@ import org.koin.androidx.scope.fragmentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.scope.Scope
 
-class LocationFragment : Fragment(), AndroidScopeComponent {
+class LocationFragment : Fragment(R.layout.fragment_location), AndroidScopeComponent {
 
     override val scope: Scope by fragmentScope()
 
-    private var _binding: FragmentLocationBinding? = null
-    private val binding: FragmentLocationBinding
-        get() = _binding!!
-
+    private val binding by viewBinding(FragmentLocationBinding::bind)
     private val viewModel: LocationViewModel by viewModel()
     private val adapter: LocationAdapter by inject()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        _binding = FragmentLocationBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,11 +40,6 @@ class LocationFragment : Fragment(), AndroidScopeComponent {
         setOnLocationClickListener()
         bindViewModelToLifecycle()
         observerUiState()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun setupAdapter() {
